@@ -119,12 +119,12 @@ namespace Employee.Repository
 
         public Models.Employees GetByID(int Id)
         {
-            return CurrentDbContext.Employee.Find(Id);
+            return CurrentDbContext.Employee.Include(x => x.DepartmentFK).SingleOrDefault(x => x.Id == Id);
         }
 
         public async Task<Models.Employees> GetByIDAsync(int Id)
         {
-            return await CurrentDbContext.Employee.FindAsync(Id);
+            return await CurrentDbContext.Employee.Include(x => x.DepartmentFK).SingleOrDefaultAsync(x => x.Id == Id);
         }
 
         public void Update(EmployeeViewModel viewModel)
